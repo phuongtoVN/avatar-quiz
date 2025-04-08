@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/avatar-quiz/static/css/main.83248d4f.css",
-    "main.js": "/avatar-quiz/static/js/main.8fec4693.js",
+    "main.js": "/avatar-quiz/static/js/main.14592e61.js",
     "static/media/earth.png": "/avatar-quiz/static/media/earth.248abb86b3f43acc3304.png",
     "static/media/air.png": "/avatar-quiz/static/media/air.35c263492a73b8e0ea81.png",
     "static/media/fire.jpg": "/avatar-quiz/static/media/fire.01a3fe091cb274979103.jpg",
@@ -10,10 +10,10 @@
     "static/media/bg1.jpg": "/avatar-quiz/static/media/bg1.ba4c63a8072f598223a4.jpg",
     "index.html": "/avatar-quiz/index.html",
     "main.83248d4f.css.map": "/avatar-quiz/static/css/main.83248d4f.css.map",
-    "main.8fec4693.js.map": "/avatar-quiz/static/js/main.8fec4693.js.map"
+    "main.14592e61.js.map": "/avatar-quiz/static/js/main.14592e61.js.map"
   },
   "entrypoints": [
     "static/css/main.83248d4f.css",
-    "static/js/main.8fec4693.js"
+    "static/js/main.14592e61.js"
   ]
 }
