@@ -1,3 +1,4 @@
+// Quiz.tsx
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,12 +8,22 @@ const questions = [
     options: ['Meditate', 'Go for a walk', 'Confront it head-on', 'Go with the flow'],
   },
   {
-    question: 'What is your favorite environment?',
-    options: ['Mountains', 'Forest', 'Desert', 'Ocean'],
+    question: 'What gives you the most satisfaction at the end of the day?',
+    options: [
+      'Feeling mentally balanced',
+      'Seeing tangible progress',
+      'Knowing you made an impact',
+      'Feeling emotionally fulfilled',
+    ],
   },
   {
-    question: 'What is your personality like?',
-    options: ['Thoughtful', 'Practical', 'Passionate', 'Adaptable'],
+    question: "Which scenario sounds most rewarding to you?",
+    options: [
+      'Having a meaningful one-on-one conversation',
+      'Successfully completing a long-term goal',
+      'Leading a passionate group through a challenge',
+      'Experiencing something spontaneous and emotionally freeing',
+    ],
   },
   {
     question: 'What is your preferred way to spend free time?',
@@ -23,12 +34,22 @@ const questions = [
     options: ['Analyze carefully', 'Trust your instincts', 'Follow your heart', 'Go with the flow'],
   },
   {
-    question: 'What is your favorite season?',
-    options: ['Spring', 'Summer', 'Autumn', 'Winter'],
+    question: 'You enter a room full of strangers. What do you do first?',
+    options: [
+      'Observe and read the room quietly',
+      'Stick to a comfortable corner until you ease in',
+      'Start conversations and bring energy',
+      'Float from group to group, feeling it out',
+    ],
   },
   {
-    question: 'What is your favorite element in nature?',
-    options: ['Wind', 'Rocks', 'Fire', 'Water'],
+    question: 'Which type of compliment means the most to you?',
+    options: [
+      'You make people feel calm and understood',
+      'You’re always grounded and reliable',
+      'You’re passionate and full of energy',
+      'You’re adaptable and open-minded',
+    ],
   },
   {
     question: 'What is your communication style?',
@@ -43,12 +64,22 @@ const questions = [
     options: ['Exploring new ideas', 'Hiking in nature', 'Thrill-seeking activities', 'Relaxing by the water'],
   },
   {
-    question: 'What is your favorite color?',
-    options: ['Blue', 'Green', 'Red', 'Yellow'],
+    question: 'Your ideal role in a team is:',
+    options: [
+      'The visionary who sees the bigger picture',
+      'The planner who brings stability',
+      'The motivator who sparks momentum',
+      'The mediator who keeps things flowing',
+    ],
   },
   {
-    question: 'What is your favorite animal?',
-    options: ['Eagle', 'Badgermole', 'Dragon', 'Koi Fish'],
+    question: "How do you usually approach learning something new?",
+    options: [
+      'Read, reflect, and explore ideas first',
+      'Create a structured plan and follow it step-by-step',
+      'Jump in headfirst — you learn by doing',
+      'Feel it out intuitively and adapt as you go',
+    ],
   },
 ];
 
@@ -84,23 +115,28 @@ const Quiz: React.FC = () => {
     const counts: { [key: string]: number } = { air: 0, earth: 0, fire: 0, water: 0 };
     answers.forEach((answer) => {
       if ([
-        'Meditate', 'Mountains', 'Thoughtful', 'Reading', 'Spring', 'Wind',
-        'Calm and logical', 'Think it through', 'Exploring new ideas', 'Blue', 'Eagle'
+        'Meditate', 'Feeling mentally balanced', 'Having a meaningful one-on-one conversation',
+        'Reading', 'Analyze carefully', 'Observe and read the room quietly',
+        'You make people feel calm and understood', 'Calm and logical', 'Think it through',
+        'Exploring new ideas', 'The visionary who sees the bigger picture', 'Read, reflect, and explore ideas first'
       ].includes(answer)) counts.air++;
       if ([
-        'Go for a walk', 'Forest', 'Practical', 'Gardening', 'Trust your instincts',
-        'Summer', 'Rocks', 'Direct and practical', 'Tackle it head-on', 'Hiking in nature',
-        'Green', 'Badgermole'
+        'Go for a walk', 'Seeing tangible progress', 'Successfully completing a long-term goal',
+        'Gardening', 'Trust your instincts', 'Stick to a comfortable corner until you ease in',
+        'You’re always grounded and reliable', 'Direct and practical', 'Tackle it head-on',
+        'Hiking in nature', 'The planner who brings stability', 'Create a structured plan and follow it step-by-step'
       ].includes(answer)) counts.earth++;
       if ([
-        'Confront it head-on', 'Desert', 'Passionate', 'Exercising', 'Follow your heart',
-        'Autumn', 'Fire', 'Emotional and expressive', 'Feel your way through', 'Thrill-seeking activities',
-        'Red', 'Dragon'
+        'Confront it head-on', 'Knowing you made an impact', 'Leading a passionate group through a challenge',
+        'Exercising', 'Follow your heart', 'Start conversations and bring energy',
+        'You’re passionate and full of energy', 'Emotional and expressive', 'Feel your way through',
+        'Thrill-seeking activities', 'The motivator who sparks momentum', 'Jump in headfirst — you learn by doing'
       ].includes(answer)) counts.fire++;
       if ([
-        'Go with the flow', 'Ocean', 'Adaptable', 'Socializing', 'Go with the flow',
-        'Winter', 'Water', 'Flexible and adaptable', 'Adapt and overcome', 'Relaxing by the water',
-        'Yellow', 'Koi Fish'
+        'Go with the flow', 'Feeling emotionally fulfilled', 'Experiencing something spontaneous and emotionally freeing',
+        'Socializing', 'Go with the flow', 'Float from group to group, feeling it out',
+        'You’re adaptable and open-minded', 'Flexible and adaptable', 'Adapt and overcome',
+        'Relaxing by the water', 'The mediator who keeps things flowing', 'Feel it out intuitively and adapt as you go'
       ].includes(answer)) counts.water++;
     });
 
