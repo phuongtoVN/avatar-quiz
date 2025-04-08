@@ -1,11 +1,19 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Result: React.FC = () => {
   const location = useLocation();
-  const { name, result } = location.state as { name: string; result: string };
+  const navigate = useNavigate();
+  const state = location.state as { name?: string; result?: string };
 
-  // Determine the background image based on the result
+  useEffect(() => {
+    if (!state?.name || !state?.result) {
+      navigate('/');
+    }
+  }, [state, navigate]);
+
+  const { name = '', result = '' } = state;
+
   const getBackgroundImage = () => {
     switch (result.toLowerCase()) {
       case 'fire':
@@ -19,16 +27,16 @@ const Result: React.FC = () => {
       case 'avatar':
         return require('../img/avatar.jpeg');
       default:
-        return require('../img/bg1.jpg'); // Fallback image
+        return require('../img/bg1.jpg');
     }
   };
 
   return (
     <div
       style={{
-        backgroundImage: `url(${getBackgroundImage()})`, // Set dynamic background image
-        backgroundSize: 'cover', // Ensure the background covers the entire screen
-        backgroundPosition: 'center', // Center the background image
+        backgroundImage: `url(${getBackgroundImage()})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
@@ -39,19 +47,35 @@ const Result: React.FC = () => {
     >
       <div
         style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
           padding: '20px',
           borderRadius: '10px',
+          maxWidth: '90%',
         }}
       >
         <h1>Result</h1>
-        {result === 'Avatar' ? (
+        {result.toLowerCase() === 'avatar' ? (
           <p>{name}, you have mastered all 4 elements! You are the Avatar!</p>
         ) : (
           <p>
             {name}, your element is: <strong>{result.toUpperCase()}</strong>
           </p>
         )}
+        <button
+          onClick={() => navigate('/')}
+          style={{
+            marginTop: '20px',
+            padding: '10px 20px',
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '16px',
+          }}
+        >
+          Retake the Quiz
+        </button>
       </div>
     </div>
   );

@@ -5,8 +5,9 @@ import Quiz from './components/Quiz';
 import Result from './components/Result';
 
 const App: React.FC = () => {
+  
   return (
-    <Router basename="/avatar-quiz"> {/* Add basename here */}
+    <Router> {/* Add basename here */}
       <Routes>
         <Route path="/" element={<NameInput />} />
         <Route path="/quiz" element={<Quiz />} />

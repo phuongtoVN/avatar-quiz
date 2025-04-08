@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const questions = [
@@ -55,20 +55,25 @@ const questions = [
 const Quiz: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { name } = location.state as { name: string };
+  const state = location.state as { name?: string };
+
+  useEffect(() => {
+    if (!state?.name) {
+      navigate('/');
+    }
+  }, [state, navigate]);
+
+  const { name } = state;
   const [answers, setAnswers] = useState<string[]>(Array(questions.length).fill(''));
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: string }>({});
 
   const handleAnswer = (questionIndex: number, option: string) => {
-    // Update the selected option for the question
     setSelectedOptions((prev) => ({ ...prev, [questionIndex]: option }));
 
-    // Update the answers array
     const newAnswers = [...answers];
     newAnswers[questionIndex] = option;
     setAnswers(newAnswers);
 
-    // If all questions are answered, calculate the result
     if (newAnswers.length === questions.length && newAnswers.every((answer) => answer !== '')) {
       const result = calculateResult(newAnswers);
       navigate('/result', { state: { name, result } });
@@ -78,21 +83,29 @@ const Quiz: React.FC = () => {
   const calculateResult = (answers: string[]): string => {
     const counts: { [key: string]: number } = { air: 0, earth: 0, fire: 0, water: 0 };
     answers.forEach((answer) => {
-      if (['Meditate', 'Mountains', 'Thoughtful', 'Reading', 'Spring', 'Wind', 'Calm and logical', 'Think it through', 'Exploring new ideas', 'Blue', 'Eagle'].includes(answer))
-        counts.air++;
-      if (['Go for a walk', 'Forest', 'Practical', 'Gardening', 'Trust your instincts', 'Summer', 'Rocks', 'Direct and practical', 'Tackle it head-on', 'Hiking in nature', 'Green', 'Badgermole'].includes(answer))
-        counts.earth++;
-      if (['Confront it head-on', 'Desert', 'Passionate', 'Exercising', 'Follow your heart', 'Autumn', 'Fire', 'Emotional and expressive', 'Feel your way through', 'Thrill-seeking activities', 'Red', 'Dragon'].includes(answer))
-        counts.fire++;
-      if (['Go with the flow', 'Ocean', 'Adaptable', 'Socializing', 'Go with the flow', 'Winter', 'Water', 'Flexible and adaptable', 'Adapt and overcome', 'Relaxing by the water', 'Yellow', 'Koi Fish'].includes(answer))
-        counts.water++;
+      if ([
+        'Meditate', 'Mountains', 'Thoughtful', 'Reading', 'Spring', 'Wind',
+        'Calm and logical', 'Think it through', 'Exploring new ideas', 'Blue', 'Eagle'
+      ].includes(answer)) counts.air++;
+      if ([
+        'Go for a walk', 'Forest', 'Practical', 'Gardening', 'Trust your instincts',
+        'Summer', 'Rocks', 'Direct and practical', 'Tackle it head-on', 'Hiking in nature',
+        'Green', 'Badgermole'
+      ].includes(answer)) counts.earth++;
+      if ([
+        'Confront it head-on', 'Desert', 'Passionate', 'Exercising', 'Follow your heart',
+        'Autumn', 'Fire', 'Emotional and expressive', 'Feel your way through', 'Thrill-seeking activities',
+        'Red', 'Dragon'
+      ].includes(answer)) counts.fire++;
+      if ([
+        'Go with the flow', 'Ocean', 'Adaptable', 'Socializing', 'Go with the flow',
+        'Winter', 'Water', 'Flexible and adaptable', 'Adapt and overcome', 'Relaxing by the water',
+        'Yellow', 'Koi Fish'
+      ].includes(answer)) counts.water++;
     });
 
-    // Check if all elements have equal points
     const allEqual = Object.values(counts).every((val) => val === counts.air);
-    if (allEqual) {
-      return 'Avatar';
-    }
+    if (allEqual) return 'Avatar';
 
     return Object.keys(counts).reduce((a, b) => (counts[a] > counts[b] ? a : b));
   };
